@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const Solution = require('./1_Swap_two_num.js');
+const Solution = require('./Swap_Two_Numbers.js');
 
 const sol = new Solution();
 

@@ -2,7 +2,8 @@
 
 **Difficulty:** Easy
 **Topics:** Variables, Input/Output, Operators
-**File:** [`1_Swap_two_num.js`](./1_Swap_two_num.js)
+**File:** [`Swap_Two_Numbers.js`](./Swap_Two_Numbers.js)
+**Tests:** [`Swap_Two_Numbers.test.js`](./Swap_Two_Numbers.test.js)
 
 ## Problem Statement
 

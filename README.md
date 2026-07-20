@@ -10,11 +10,23 @@ Build pattern-based intuition for DSA (not just solve random problems) by pairin
 
 ```
 my_dsa/
+├── DSA_WarmUp/       # Foundational problems, grouped by topic; each problem gets its own folder
+│   └── Variables_I/
+│       ├── 1_Swap_Two_Numbers/
+│       │   ├── README.md
+│       │   ├── Swap_Two_Numbers.js
+│       │   └── Swap_Two_Numbers.test.js
+│       └── 2_Temperature_Converter/
+│           ├── README.md
+│           ├── Temperature_Converter.js
+│           └── Temperature_Converter.test.js
 ├── patterns/       # One folder per pattern (two-pointers, sliding-window, etc.)
 ├── resources/       # Links, notes, and reference material per concept
 ├── animations/       # Visualizations/animations used to build intuition
 └── problems/       # Practice problems mapped to each pattern
 ```
+
+Each problem folder follows the same layout: a `README.md` with the problem statement, concepts, and approach(es), the solution file, and a `*.test.js` file. Run `npm test` from the repo root to run every test.
 
 ## Patterns to Cover
 
