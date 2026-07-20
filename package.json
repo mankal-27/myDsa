@@ -1,0 +1,10 @@
+{
+  "name": "my-dsa",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DSA patterns, resources, and practice problems",
+  "scripts": {
+    "test": "node --test",
+    "test:watch": "node --test --watch"
+  }
+}
