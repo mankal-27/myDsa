@@ -39,6 +39,14 @@ Output: 37
 - `scale` is either `"C"` or `"F"`.
 - Result is rounded to 2 decimal places.
 
+## Use Case
+
+This looks like a trivial formula problem, but the pattern it teaches — branching on an input flag to pick one of several fixed formulas, then normalizing the output — shows up constantly:
+
+- **Unit conversion systems** — currency conversion, distance (miles/km), weight (lbs/kg), all follow the same "pick formula based on a flag, then round/format" shape.
+- **Input validation & normalization** — real-world versions of this need to validate `scale` is one of the expected values and handle malformed input, a habit worth building early.
+- **Floating-point rounding** — the `Math.round(x * 100) / 100` trick for fixed-decimal rounding is used anywhere financial or scientific values need consistent precision (avoiding floating-point display noise like `97.87999999999998`).
+
 ## Concepts
 
 - **Variables** — using `let` for a value computed conditionally, versus `const` for values that don't change.
@@ -62,7 +70,12 @@ class Solution {
 }
 ```
 
-Time: O(1), Space: O(1).
+## Complexity
+
+| | Complexity | Why |
+|---|---|---|
+| Time | O(1) | A fixed number of arithmetic operations regardless of input size — no loops, no recursion. |
+| Space | O(1) | One local variable (`result`); no data structures that grow with input. |
 
 ## Key Takeaway
 

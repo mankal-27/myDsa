@@ -26,7 +26,17 @@ my_dsa/
 └── problems/       # Practice problems mapped to each pattern
 ```
 
-Each problem folder follows the same layout: a `README.md` with the problem statement, concepts, and approach(es), the solution file, and a `*.test.js` file. Run `npm test` from the repo root to run every test.
+Each problem folder follows the same layout: a `README.md`, the solution file, and a `*.test.js` file. Run `npm test` from the repo root to run every test.
+
+### Problem README Template
+
+Every problem's `README.md` covers:
+
+1. **Problem Statement** — the prompt, examples, and constraints.
+2. **Use Case** — where this concept/technique actually shows up (real systems, other algorithms, common interview follow-ups) — not just "how" but "why it matters."
+3. **Concepts** — the specific language/DSA concepts the problem exercises.
+4. **Approach(es)** — one or more solutions with code.
+5. **Complexity** — time and space complexity in Big-O notation for every approach, with a short justification (not just the notation).
 
 ## Patterns to Cover
 

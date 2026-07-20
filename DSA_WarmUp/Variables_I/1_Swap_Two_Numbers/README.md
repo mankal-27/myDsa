@@ -30,6 +30,15 @@ Output: [9, -3]
 - Both `a` and `b` fit in the 32-bit signed integer range: `-2^31 <= a, b <= 2^31 - 1`.
 - The values may be negative, zero, or equal to each other.
 
+## Use Case
+
+Swapping is one of the most-used primitives in DSA, not a problem you'll see standalone in interviews but one you'll write inline constantly:
+
+- **Sorting algorithms** — bubble sort, selection sort, quicksort's partition step, and heapsort all swap array elements in place to avoid extra memory.
+- **In-place array manipulation** — reversing an array/string, rotating an array, or the two-pointer technique all rely on swapping elements at two indices.
+- **Graph/tree algorithms** — swapping child pointers (mirroring a binary tree) or adjacency list entries.
+- **Register-constrained systems** — the arithmetic/XOR variants below originated in embedded/assembly programming where a spare register wasn't always available; understanding them helps when reasoning about space complexity in constrained environments.
+
 ## Concepts
 
 - **Variables** — declaring and reassigning values with `let`/`const`, and understanding that `const` bindings can't be reassigned (so a temp-variable swap needs `let`).
@@ -73,7 +82,7 @@ function swap(a, b) {
 }
 ```
 
-Safe in JS since numbers don't overflow the same way as fixed-width integers in other languages, but generally avoided in interviews in favor of destructuring — it's harder to read and was really a workaround for languages without a spare register/variable.
+**Time: O(1), Space: O(1)** — no auxiliary variable used. Safe in JS since numbers don't overflow the same way as fixed-width integers in other languages, but generally avoided in interviews in favor of destructuring — it's harder to read and was really a workaround for languages without a spare register/variable.
 
 ### 4. XOR swap (bitwise, integers only)
 
@@ -86,7 +95,18 @@ function swap(a, b) {
 }
 ```
 
-Only works correctly for integers, and breaks if `a` and `b` reference the same variable/memory location. Included for completeness — not recommended in practice.
+**Time: O(1), Space: O(1)** — no auxiliary variable used. Only works correctly for integers, and breaks if `a` and `b` reference the same variable/memory location. Included for completeness — not recommended in practice.
+
+## Complexity Summary
+
+| Approach | Time | Space | Notes |
+|---|---|---|---|
+| Temporary variable | O(1) | O(1) extra (1 variable) | Clearest, safest, works for any type |
+| Destructuring | O(1) | O(1) | Idiomatic JS, no explicit temp needed |
+| Arithmetic (no temp) | O(1) | O(1), 0 extra variables | Numbers only; readability tradeoff |
+| XOR (bitwise) | O(1) | O(1), 0 extra variables | Integers only; breaks on same-reference swap |
+
+All four approaches are constant time and constant space — the difference between them is readability and whether they need an extra variable, not asymptotic complexity.
 
 ## Key Takeaway
 
