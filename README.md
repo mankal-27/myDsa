@@ -41,6 +41,10 @@ my_dsa/
 - [USACO Guide](https://usaco.guide/) — structured DSA curriculum
 - [Algorithm Visualizer](https://algorithm-visualizer.org/)
 
+## Language Chapters
+
+- [JavaScript for DSA](resources/javascript-for-dsa.md) — JS fundamentals, built-ins, and idioms for solving DSA problems
+
 ## Progress
 
 Track pattern-by-pattern progress here as concepts are studied.
