@@ -81,7 +81,11 @@ Two things came up reviewing the initial solution, fixed in the final version be
 
 ### Simple Interest
 
-**Brute force** — simulate it year by year, adding the same flat interest amount each time. Only works for whole-number `time` (you can't loop 2.5 times):
+**Brute force**
+
+**Intuition:** Simple interest is defined as "the same flat amount of interest, every year." The most literal way to compute that is to actually add that flat amount once per year, in a loop — you're simulating the definition directly instead of jumping to the shortcut formula.
+
+**Solution:**
 
 ```js
 simpleInterestBruteForce(principal, rate, time) {
@@ -93,7 +97,20 @@ simpleInterestBruteForce(principal, rate, time) {
 }
 ```
 
-**Optimized** — simple interest grows *linearly*, so summing the same amount `T` times is just `amount * T`. No loop needed:
+**Dry Run** (`principal = 1000, rate = 5, time = 2`, Example 1):
+
+| Iteration (`year`) | `principal * rate / 100` added | `totalInterest` after |
+|---|---|---|
+| 1 | `1000 * 5 / 100 = 50` | `50` |
+| 2 | `1000 * 5 / 100 = 50` | `100` |
+
+Loop ends (`year = 3 > time = 2`). Return `Math.round(100 * 100) / 100 = 100`. ✓ matches Example 1.
+
+**Optimized**
+
+**Intuition:** The brute-force loop adds the exact same amount (`principal * rate / 100`) on every single iteration — nothing changes between years. Whenever a loop adds the same fixed value `T` times, that's just multiplication in disguise: `amount + amount + ... (T times) = amount * T`.
+
+**Solution:**
 
 ```js
 simpleInterest(principal, rate, time) {
@@ -102,9 +119,23 @@ simpleInterest(principal, rate, time) {
 }
 ```
 
+**Dry Run** (`principal = 1000, rate = 5, time = 2`):
+
+| Step | Expression | Value |
+|---|---|---|
+| 1 | `principal * rate * time` | `1000 * 5 * 2 = 10000` |
+| 2 | `10000 / 100` | `100` |
+| 3 | `Math.round(100 * 100) / 100` | `100` |
+
+Return `100`. ✓ matches Example 1, in one step instead of a 2-iteration loop.
+
 ### Compound Interest
 
-**Brute force** — simulate period by period, re-applying the interest rate to the *growing* amount each time. This is literally how compounding works in real life:
+**Brute force**
+
+**Intuition:** Compound interest is defined as "each period's interest gets added to the principal before the next period's interest is calculated" — so the most direct translation of that definition is a loop that actually grows the amount, period by period, exactly as the definition describes.
+
+**Solution:**
 
 ```js
 compoundInterestBruteForce(principal, rate, time, compoundsPerYear = 1) {
@@ -118,7 +149,23 @@ compoundInterestBruteForce(principal, rate, time, compoundsPerYear = 1) {
 }
 ```
 
-**Optimized** — repeated multiplication by the same factor *is* exponentiation. Collapse the whole loop into one call:
+**Dry Run** (`principal = 1000, rate = 5, time = 2, compoundsPerYear = 1`, Example 1):
+
+`ratePerPeriod = 5 / 1 / 100 = 0.05`, `numPeriods = 1 * 2 = 2`.
+
+| Iteration (`i`) | `amount * ratePerPeriod` added | `amount` after |
+|---|---|---|
+| start | — | `1000` |
+| 0 | `1000 * 0.05 = 50` | `1050` |
+| 1 | `1050 * 0.05 = 52.5` | `1102.5` |
+
+Loop ends (`i = 2` = `numPeriods`). Return `Math.round((1102.5 - 1000) * 100) / 100 = 102.5`. ✓ matches Example 1. Notice period 2 adds `52.5`, not `50` — that's the "interest on interest" that makes this compound rather than simple.
+
+**Optimized**
+
+**Intuition:** Look at what the loop is really doing: `amount *= (1 + ratePerPeriod)` on every iteration, `numPeriods` times in a row. Multiplying the same factor by itself repeatedly is exactly what exponentiation *is* — so the whole loop collapses into `amount * (1 + ratePerPeriod) ^ numPeriods`.
+
+**Solution:**
 
 ```js
 compoundInterest(principal, rate, time, compoundsPerYear = 1) {
@@ -130,7 +177,24 @@ compoundInterest(principal, rate, time, compoundsPerYear = 1) {
 }
 ```
 
-**Bonus — manual fast exponentiation** (in case `Math.pow` is off the table, e.g. an interview asks you to implement power yourself). Same binary-exponentiation technique used for modular exponentiation and matrix power in more advanced problems:
+**Dry Run** (`principal = 1000, rate = 5, time = 2, compoundsPerYear = 1`):
+
+| Step | Expression | Value |
+|---|---|---|
+| 1 | `ratePerPeriod = 5 / 1 / 100` | `0.05` |
+| 2 | `numPeriods = 1 * 2` | `2` |
+| 3 | `Math.pow(1.05, 2)` | `1.1025` |
+| 4 | `amount = 1000 * 1.1025` | `1102.5` |
+| 5 | `ci = 1102.5 - 1000` | `102.5` |
+| 6 | `Math.round(102.5 * 100) / 100` | `102.5` |
+
+Return `102.5`. ✓ matches Example 1 and the brute-force result above, in one call instead of a 2-iteration loop.
+
+**Bonus — manual fast exponentiation** (in case `Math.pow` is off the table, e.g. an interview asks you to implement power yourself)
+
+**Intuition:** Instead of multiplying `base` by itself `exp` times one at a time (that's `compoundInterestBruteForce`'s job), notice that `base^exp = (base^(exp/2))^2` — you can get the answer for a *full* exponent by solving for *half* the exponent and squaring it. Each recursive call halves the problem size, so the number of calls needed grows logarithmically instead of linearly. This is the same binary-exponentiation technique used for modular exponentiation and matrix power in more advanced problems.
+
+**Solution:**
 
 ```js
 compoundInterestFastPower(principal, rate, time, compoundsPerYear = 1) {
@@ -148,6 +212,16 @@ compoundInterestFastPower(principal, rate, time, compoundsPerYear = 1) {
   return Math.round((amount - principal) * 100) / 100;
 }
 ```
+
+**Dry Run** — tracing just `fastPow(1.05, 2)` from the example above (`base = 1.05, exp = 2`):
+
+| Call | `exp` | Recurses into | Returns |
+|---|---|---|---|
+| `fastPow(1.05, 2)` | `2` (even) | `fastPow(1.05, 1)` | `half² = 1.05² = 1.1025` |
+| `fastPow(1.05, 1)` | `1` (odd) | `fastPow(1.05, 0)` | `half² * base = 1 * 1.05 = 1.05` |
+| `fastPow(1.05, 0)` | `0` (base case) | — | `1` |
+
+Unwinding: `fastPow(1.05, 0) = 1` → `fastPow(1.05, 1) = 1² * 1.05 = 1.05` → `fastPow(1.05, 2) = 1.05² = 1.1025`. Same `1.1025` as `Math.pow(1.05, 2)` above, reached in 3 recursive calls instead of 2 loop iterations — the gap grows dramatically for large exponents (e.g. `numPeriods = 1000` takes about 10 calls here vs. 1000 loop iterations in the brute-force version).
 
 ## Complexity
 

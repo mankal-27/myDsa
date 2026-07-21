@@ -53,7 +53,9 @@ Absolute value is a building block used everywhere in DSA, even though it rarely
 
 ### Brute Force — conditional check
 
-Check the sign directly and negate if needed:
+**Intuition:** Absolute value has a two-case definition by nature — "if it's negative, flip the sign; otherwise leave it alone" — so the most direct translation into code is exactly that: check the sign, branch, negate if needed.
+
+**Solution:**
 
 ```js
 absoluteValueBruteForce(num) {
@@ -64,7 +66,20 @@ absoluteValueBruteForce(num) {
 
 Simple and completely readable — this is genuinely how you should write this in real code. "Brute force" here just means "the direct approach," not something inefficient.
 
+**Dry Run** (`num = -7`, Example 1):
+
+| Step | Expression | Value |
+|---|---|---|
+| 1 | `num < 0`? | `-7 < 0` → `true` |
+| 2 | `return -num` | `-(-7) = 7` |
+
+Return `7`. ✓ matches Example 1.
+
 ### Optimized — branchless bitwise trick (two's complement)
+
+**Intuition:** In two's complement, negating a number is `(~num) + 1`, which is algebraically the same as `(num ^ -1) - (-1)`. The sign-extending right shift `num >> 31` produces exactly `-1` (all 1-bits) for negative numbers and `0` for non-negative ones — so it acts as a switch: when `num` is negative, the expression becomes the two's-complement negation formula; when `num` is non-negative, `mask` is `0` and the whole expression reduces to `num - 0`, a no-op. One formula, no branch, both cases handled.
+
+**Solution:**
 
 ```js
 absoluteValueOptimized(num) {
@@ -74,6 +89,17 @@ absoluteValueOptimized(num) {
 ```
 
 Works because in two's complement, `-num` is `(~num) + 1`, i.e. `(num ^ -1) - (-1)`. When `num` is non-negative, `mask` is `0`, so this simplifies to `num - 0`, a no-op. No `if`, no branch — useful in performance-sensitive code where branch mispredictions matter, and a nice worked example of two's complement in action. Note: this only works correctly for 32-bit integers (the `>> 31` assumes a 32-bit sign bit) — it is not a general-purpose replacement for `Math.abs()` on arbitrary numbers.
+
+**Dry Run** (`num = -7`, Example 1; shown as 32-bit two's complement bit patterns):
+
+| Step | Expression | Binary | Decimal |
+|---|---|---|---|
+| 0 | `num` | `...11111001` | `-7` |
+| 1 | `mask = num >> 31` | `...11111111` | `-1` (all 1s, since `num` is negative) |
+| 2 | `num ^ mask` (flips every bit of `num`) | `...00000110` | `6` |
+| 3 | `(num ^ mask) - mask` → `6 - (-1)` | `...00000111` | `7` |
+
+Return `7`. ✓ matches Example 1. For a non-negative input like `num = 5`: `mask = 5 >> 31 = 0`, so the result is `(5 ^ 0) - 0 = 5 - 0 = 5` — the formula quietly does nothing.
 
 ## Complexity
 

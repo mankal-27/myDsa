@@ -47,7 +47,9 @@ Converting a raw duration (seconds, milliseconds, frames) into human-readable un
 
 ### Brute Force — simulate a ticking clock
 
-Count up one second at a time, rolling over into minutes and hours exactly like a real clock would:
+**Intuition:** A real clock doesn't "know" division — it just ticks forward one second at a time and rolls over into the next unit whenever the current one maxes out. Simulating that literally (increment seconds, roll into minutes at 60, roll into hours at 60) is the most direct translation of "how a clock works" into code.
+
+**Solution:**
 
 ```js
 convertSecondsBruteForce(totalSeconds) {
@@ -63,9 +65,25 @@ convertSecondsBruteForce(totalSeconds) {
 
 Correct, but it does `totalSeconds` loop iterations to compute an answer that's really just three divisions.
 
+**Dry Run** (`totalSeconds = 62`, chosen small so the rollover is visible in a short trace):
+
+| Iteration (`i`) | `seconds++` | Rollover? | `hours` | `minutes` | `seconds` |
+|---|---|---|---|---|---|
+| start | — | — | `0` | `0` | `0` |
+| 0 | `seconds = 1` | no | `0` | `0` | `1` |
+| ... | ... | no | `0` | `0` | ... |
+| 58 | `seconds = 59` | no | `0` | `0` | `59` |
+| 59 | `seconds = 60` | `seconds === 60` → `seconds = 0, minutes++` | `0` | `1` | `0` |
+| 60 | `seconds = 1` | no | `0` | `1` | `1` |
+| 61 | `seconds = 2` | no | `0` | `1` | `2` |
+
+Loop ends after 62 iterations (`i` reaches `totalSeconds`). Return `[0, 1, 2]` — 62 seconds is 1 minute and 2 seconds. ✓
+
 ### Optimized — integer division + modulo
 
-Peel off the largest unit first (hours), then work with the remainder for the next unit (minutes), then whatever's left is seconds:
+**Intuition:** The brute-force loop's rollovers happen at fixed, predictable points — every 60 seconds and every 3600 seconds — so there's no need to simulate the ticking at all. Integer division by 3600 directly answers "how many whole hours fit," and the remainder left over is exactly what the loop would have been counting through minutes and seconds; repeat the same idea one level down to split that remainder into minutes and seconds.
+
+**Solution:**
 
 ```js
 convertSecondsOptimized(totalSeconds) {
@@ -77,6 +95,17 @@ convertSecondsOptimized(totalSeconds) {
 ```
 
 No loop needed — three arithmetic operations regardless of how large `totalSeconds` is.
+
+**Dry Run** (`totalSeconds = 3661`, Example 1):
+
+| Step | Expression | Value |
+|---|---|---|
+| 1 | `hours = Math.floor(3661 / 3600)` | `Math.floor(1.017...) = 1` |
+| 2 | `3661 % 3600` | `61` (seconds left over after removing the 1 whole hour) |
+| 3 | `minutes = Math.floor(61 / 60)` | `Math.floor(1.016...) = 1` |
+| 4 | `seconds = 3661 % 60` | `1` |
+
+Return `[1, 1, 1]`. ✓ matches Example 1, in 4 arithmetic steps instead of 3,661 loop iterations.
 
 ## Complexity
 

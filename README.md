@@ -10,16 +10,20 @@ Build pattern-based intuition for DSA (not just solve random problems) by pairin
 
 ```
 my_dsa/
-├── DSA_WarmUp/       # Foundational problems, grouped by topic; each problem gets its own folder
-│   └── Variables_I/
-│       ├── 1_Swap_Two_Numbers/
-│       │   ├── README.md
-│       │   ├── Swap_Two_Numbers.js
-│       │   └── Swap_Two_Numbers.test.js
-│       └── 2_Temperature_Converter/
+├── DSA_WarmUp/       # Foundational problems, grouped by module; each problem gets its own folder
+│   ├── 1_Variables_Io_Operations/
+│   │   ├── 1_Swap_Two_Numbers/
+│   │   │   ├── README.md
+│   │   │   ├── Swap_Two_Numbers.js
+│   │   │   └── Swap_Two_Numbers.test.js
+│   │   └── 2_Temperature_Converter/
+│   │       ├── README.md
+│   │       ├── Temperature_Converter.js
+│   │       └── Temperature_Converter.test.js
+│   └── Conditionals_Dec/
+│       └── 1_Even_or_Odd/
 │           ├── README.md
-│           ├── Temperature_Converter.js
-│           └── Temperature_Converter.test.js
+│           └── Even_or_Odd.js
 ├── patterns/       # One folder per pattern (two-pointers, sliding-window, etc.)
 ├── resources/       # Links, notes, and reference material per concept
 ├── animations/       # Visualizations/animations used to build intuition
@@ -28,6 +32,13 @@ my_dsa/
 
 Each problem folder follows the same layout: a `README.md`, the solution file, and a `*.test.js` file. Run `npm test` from the repo root to run every test.
 
+### DSA WarmUp Modules
+
+| Module | Folder | Status | Problems |
+|---|---|---|---|
+| Variables & I/O Operations | `1_Variables_Io_Operations/` | Complete | Swap Two Numbers, Temperature Converter, Simple & Compound Interest, Convert Seconds to H/M/S, Absolute Value Without Built-in, Quotient & Remainder of Division, Area & Perimeter of Shapes |
+| Conditionals & Decision Making | `Conditionals_Dec/` | In progress | Even or Odd |
+
 ### Problem README Template
 
 Every problem's `README.md` covers:
@@ -35,7 +46,10 @@ Every problem's `README.md` covers:
 1. **Problem Statement** — the prompt, examples, and constraints.
 2. **Use Case** — where this concept/technique actually shows up (real systems, other algorithms, common interview follow-ups) — not just "how" but "why it matters."
 3. **Concepts** — the specific language/DSA concepts the problem exercises.
-4. **Approach(es)** — one or more solutions with code.
+4. **Approach(es)** — brute force first, then optimized (and any bonus approaches), each with:
+   - **Intuition** — the reasoning that leads to this approach, in plain language, before any code.
+   - **Solution** — the code.
+   - **Dry Run** — a step-by-step trace through a concrete example, showing how the variables change.
 5. **Complexity** — time and space complexity in Big-O notation for every approach, with a short justification (not just the notation).
 
 ## Patterns to Cover

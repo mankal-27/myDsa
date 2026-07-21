@@ -62,7 +62,9 @@ Division and remainder are two of the most heavily used operations in DSA, well 
 
 ### Brute Force — repeated subtraction
 
-Subtract `divisor` from `dividend` repeatedly, counting how many times it takes:
+**Intuition:** Division answers "how many times does `divisor` fit into `dividend`?" — and the most literal way to answer that is to actually count: keep subtracting `divisor` until there isn't enough left, tallying how many subtractions it took. Whatever's left over at the end is the remainder.
+
+**Solution:**
 
 ```js
 divideBruteForce(dividend, divisor) {
@@ -84,7 +86,24 @@ divideBruteForce(dividend, divisor) {
 
 Correct, but painfully slow when the quotient is large — dividing `1000000` by `1` takes a million subtractions to compute an answer that's obvious at a glance.
 
+**Dry Run** (`dividend = 13, divisor = 4`, Example 1):
+
+`negative = (13 < 0) !== (4 < 0) = false !== false = false`. `remaining = 13`, `divisorAbs = 4`.
+
+| Iteration | `remaining >= 4`? | `remaining -= 4` | `quotient++` |
+|---|---|---|---|
+| 1 | `13 >= 4` → yes | `remaining = 9` | `quotient = 1` |
+| 2 | `9 >= 4` → yes | `remaining = 5` | `quotient = 2` |
+| 3 | `5 >= 4` → yes | `remaining = 1` | `quotient = 3` |
+| 4 | `1 >= 4` → no | loop ends | — |
+
+`quotient = 3` (not negated, `negative` is `false`), `remainder = 1` (dividend is positive). Return `[3, 1]`. ✓ matches Example 1.
+
 ### Optimized — native `/` and `%`
+
+**Intuition:** Every one of those repeated subtractions above is doing the same fixed piece of work — the loop is really just answering "how many whole `divisor`-sized chunks fit in `dividend`," which is the literal definition of division. The engine already has a hardware-level division instruction for that; there's no need to simulate it by hand.
+
+**Solution:**
 
 ```js
 divideOptimized(dividend, divisor) {
@@ -96,9 +115,21 @@ divideOptimized(dividend, divisor) {
 
 One division, one modulo — done. This is how you'd actually write this in real code.
 
+**Dry Run** (`dividend = 13, divisor = 4`):
+
+| Step | Expression | Value |
+|---|---|---|
+| 1 | `13 / 4` | `3.25` |
+| 2 | `Math.trunc(3.25)` | `3` |
+| 3 | `13 % 4` | `1` |
+
+Return `[3, 1]`. ✓ matches Example 1 and the brute-force result above, in 2 operations instead of a 3-iteration loop.
+
 ### Bonus — doubling (exponential subtraction)
 
-A middle ground between the two, and the core trick behind LeetCode's "Divide Two Integers": instead of subtracting `divisor` one copy at a time, double it (`divisor`, `2×divisor`, `4×divisor`, ...) as long as it still fits, subtract the largest multiple that fits, and repeat. This is the same "collapse a loop of repeated operations into repeated doubling" idea used for fast exponentiation:
+**Intuition:** The brute-force loop wastes effort subtracting `divisor` one copy at a time even when it's obvious *way* more than one copy still fits. Instead, double the chunk being subtracted (`divisor`, `2×divisor`, `4×divisor`, ...) for as long as it still fits inside what's left, then subtract that largest chunk in one shot and repeat. This is the same "collapse a loop of repeated operations into repeated doubling" idea used for fast exponentiation — the core trick behind LeetCode's "Divide Two Integers."
+
+**Solution:**
 
 ```js
 divideDoubling(dividend, divisor) {
@@ -123,6 +154,31 @@ divideDoubling(dividend, divisor) {
   return [quotient, remainder];
 }
 ```
+
+**Dry Run** (`dividend = 100, divisor = 7`, a bigger example so the doubling is visible — expected `[14, 2]`):
+
+`remaining = 100`, `divisorAbs = 7`.
+
+**Outer pass 1** — double `multiple` while it still fits under `remaining = 100`:
+
+| `multiple` | `count` | `multiple << 1` fits in 100? |
+|---|---|---|
+| `7` | `1` | `14 <= 100` → keep doubling |
+| `14` | `2` | `28 <= 100` → keep doubling |
+| `28` | `4` | `56 <= 100` → keep doubling |
+| `56` | `8` | `112 <= 100`? no → stop |
+
+Subtract: `remaining = 100 - 56 = 44`, `quotient = 0 + 8 = 8`.
+
+**Outer pass 2** — `remaining = 44`:
+
+`multiple` doubles `7 → 14 → 28` (since `28 <= 44` but `56 > 44`, stop at `multiple = 28, count = 4`). Subtract: `remaining = 44 - 28 = 16`, `quotient = 8 + 4 = 12`.
+
+**Outer pass 3** — `remaining = 16`:
+
+`multiple` doubles `7 → 14` (since `14 <= 16` but `28 > 16`, stop at `multiple = 14, count = 2`). Subtract: `remaining = 16 - 14 = 2`, `quotient = 12 + 2 = 14`.
+
+`remaining = 2 < 7 = divisorAbs`, outer loop ends. Return `[14, 2]` — same answer `Math.trunc(100/7) = 14, 100 % 7 = 2` would give, reached in **3 outer passes** instead of **14 single subtractions**.
 
 ## Complexity
 

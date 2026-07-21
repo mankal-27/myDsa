@@ -54,7 +54,11 @@ This looks like a trivial formula problem, but the pattern it teaches — branch
 - **Operators** — arithmetic operator precedence, and the easy-to-miss difference between `=` (assignment) and `-`/`==`/`===` (subtraction/comparison). The original draft of this file had `(temp = 32)` instead of `(temp - 32)` — a single-character typo that silently overwrote `temp` instead of subtracting from it.
 - **Math** — `Math.round()` combined with a `* 100 / 100` scaling trick to round to a fixed number of decimal places (JS has no built-in "round to N decimals" function).
 
-## Solution
+## Approach
+
+**Intuition:** There are exactly two possible conversions here, chosen entirely by the `scale` flag — so the whole problem reduces to "pick the right formula, then round." No search, no loop, nothing to optimize away; the only real trap is transcribing the formulas correctly (see the `=` vs `-` bug below).
+
+**Solution:**
 
 ```js
 class Solution {
@@ -69,6 +73,19 @@ class Solution {
   }
 }
 ```
+
+**Dry Run** (`temp = 98.6, scale = "F"`, Example 3):
+
+| Step | Expression | Value |
+|---|---|---|
+| 1 | `scale === "C"`? | `false` → take the `else` branch |
+| 2 | `temp - 32` | `98.6 - 32 = 66.6` |
+| 3 | `66.6 * 5` | `333` |
+| 4 | `333 / 9` | `37` |
+| 5 | `result = 37` | |
+| 6 | `Math.round(37 * 100) / 100` | `Math.round(3700) / 100 = 37` |
+
+Return `37`. ✓ matches Example 3 — `98.6°F` (human body temperature) converts to almost exactly `37°C`.
 
 ## Complexity
 

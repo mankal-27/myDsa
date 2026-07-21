@@ -69,6 +69,10 @@ This is a small "shape calculator," but the two things it exercises show up cons
 
 ### Brute Force — if/else dispatch + manual square root
 
+**Intuition:** With only four shapes, checking "is it this one? Then is it this one?" one at a time with `if/else if` is the most direct way to route to the right formula. For the triangle case, Heron's formula needs a square root — and without a built-in, the most direct way to compute one is Newton's method: start with a guess, and repeatedly refine it (`guess = (guess + x/guess) / 2`) until squaring the guess gets close enough to `x`.
+
+**Solution:**
+
 ```js
 function sqrtApprox(x, precision = 1e-10) {
   if (x === 0) return 0;
@@ -103,7 +107,31 @@ areaAndPerimeterBruteForce(shape, dims) {
 
 Works, but two things don't scale: the `if/else if` chain grows linearly with every new shape you add, and `sqrtApprox` does dozens of iterations to compute something `Math.sqrt` gets in one native call.
 
+**Dry Run** (`shape = "triangle", dims = [3, 4, 5]`, Example 4):
+
+Dispatch: `shape === "rectangle"`? no. `shape === "square"`? no. `shape === "circle"`? no. `shape === "triangle"`? **yes** — 3 failed checks before landing on the right branch.
+
+Inside the triangle branch: `a = 3, b = 4, c = 5`, `s = (3+4+5)/2 = 6`, so `sqrtApprox(6 * (6-3) * (6-4) * (6-5)) = sqrtApprox(6 * 3 * 2 * 1) = sqrtApprox(36)`.
+
+**`sqrtApprox(36)` trace** (Newton's method, starting guess `= x = 36`):
+
+| Iteration | `guess` before | `guess * guess - 36` | `guess = (guess + 36/guess) / 2` |
+|---|---|---|---|
+| 1 | `36` | `1260` (way off) | `18.5` |
+| 2 | `18.5` | `306.25` | `10.223` |
+| 3 | `10.223` | `68.51` | `6.872` |
+| 4 | `6.872` | `11.24` | `6.055` |
+| 5 | `6.055` | `0.667` | `6.00025` |
+| 6 | `6.00025` | `0.0304` | `6.0000000053` |
+| 7 | `6.0000000053` | `~6.4e-8` | `6` (close enough, loop exits) |
+
+`area = 6`, `perimeter = a + b + c = 12`. Return `[round2(6), round2(12)] = [6, 12]`. ✓ matches Example 4 — but it took **7 iterations** to converge on a square root that `Math.sqrt(36)` would return instantly.
+
 ### Optimized — dispatch table + `Math.sqrt`
+
+**Intuition:** Every branch in the `if/else if` chain is doing the same job — "given a shape name, produce a function that computes its area/perimeter" — so instead of a chain of comparisons, store that mapping directly: an object where each key is a shape name and each value is the formula function. Looking up `shapes[shape]` replaces the entire chain of comparisons with one property access. And since `Math.sqrt` already exists natively, there's no reason to hand-roll Newton's method for the triangle case.
+
+**Solution:**
 
 ```js
 areaAndPerimeterOptimized(shape, dims) {
@@ -126,6 +154,19 @@ areaAndPerimeterOptimized(shape, dims) {
 ```
 
 Adding a new shape means adding one entry to the object, not another `else if` branch — and `Math.sqrt` replaces dozens of manual iterations with one call.
+
+**Dry Run** (`shape = "triangle", dims = [3, 4, 5]`):
+
+| Step | Expression | Value |
+|---|---|---|
+| 1 | `shapes["triangle"]` | the triangle formula function (one lookup, no comparisons) |
+| 2 | `[a, b, c] = [3, 4, 5]` | destructured from `dims` |
+| 3 | `s = (3 + 4 + 5) / 2` | `6` |
+| 4 | `Math.sqrt(6 * 3 * 2 * 1)` | `Math.sqrt(36) = 6` (one native call) |
+| 5 | `[area, perimeter] = [6, 12]` | |
+| 6 | `[round2(6), round2(12)]` | `[6, 12]` |
+
+Return `[6, 12]`. ✓ matches Example 4 and the brute-force result above — same answer, one dispatch lookup and one native `sqrt` call instead of 3 failed `if` checks and a 7-iteration approximation loop.
 
 ## Complexity
 
