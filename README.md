@@ -20,18 +20,20 @@ my_dsa/
 │   │       ├── README.md
 │   │       ├── Temperature_Converter.js
 │   │       └── Temperature_Converter.test.js
-│   └── 2_Conditionals_Dec/
-│       ├── 1_Even_or_Odd/
-│       │   ├── README.md
-│       │   ├── Even_or_Odd.js
-│       │   └── Even_or_Odd.test.js
-│       ├── 2_Positive_Negative_or_Zero/
-│       │   ├── README.md
-│       │   ├── Positive_Negative_or_Zero.js
-│       │   └── Positive_Negative_or_Zero.test.js
-│       └── 3_Leap_Year_Check/
+│   ├── 2_Conditionals_Dec/
+│   │   ├── 1_Even_or_Odd/
+│   │   │   ├── README.md
+│   │   │   ├── Even_or_Odd.js
+│   │   │   └── Even_or_Odd.test.js
+│   │   ├── 2_Positive_Negative_or_Zero/
+│   │   │   ├── README.md
+│   │   │   ├── Positive_Negative_or_Zero.js
+│   │   │   └── Positive_Negative_or_Zero.test.js
+│   │   └── ... (Leap Year Check, Grade from Marks, Valid Triangle, Vowel or Consonant, Collinear Points)
+│   └── 3_Loops_Iteration/
+│       └── 1_Print_Numbers_from_1_to_N/
 │           ├── README.md
-│           └── Leap_Year_Check.js
+│           └── Print_Numbers_from_1_to_N.js
 ├── patterns/       # One folder per pattern (two-pointers, sliding-window, etc.)
 ├── resources/       # Links, notes, and reference material per concept
 ├── animations/       # Visualizations/animations used to build intuition
@@ -45,7 +47,8 @@ Each problem folder follows the same layout: a `README.md`, the solution file, a
 | Module | Folder | Status | Problems |
 |---|---|---|---|
 | Variables & I/O Operations | `1_Variables_Io_Operations/` | Complete | Swap Two Numbers, Temperature Converter, Simple & Compound Interest, Convert Seconds to H/M/S, Absolute Value Without Built-in, Quotient & Remainder of Division, Area & Perimeter of Shapes |
-| Conditionals & Decision Making | `2_Conditionals_Dec/` | In progress | Even or Odd, Positive/Negative/Zero, Leap Year Check |
+| Conditionals & Decision Making | `2_Conditionals_Dec/` | Complete | Even or Odd, Positive/Negative/Zero, Leap Year Check, Grade from Marks, Valid Triangle from Three Sides, Vowel or Consonant, Check if Three Points are Collinear |
+| Loops & Iteration | `3_Loops_Iteration/` | In progress | Print Numbers from 1 to N |
 
 ### Problem README Template
 
