@@ -135,6 +135,14 @@ Return `false`. ✓ matches Example 4 and Approach 1's result — computed in on
 
 Both are O(1) — the real difference here isn't speed, it's robustness: Approach 1 requires spotting and correctly handling the vertical-line edge case (miss it, and you get silently wrong or `NaN` results), while Approach 2's formula is correct for every possible configuration of three points without any special-casing at all.
 
-## Your Turn
+## Implementation Notes
 
-Implement `areCollinearApproach1(x1, y1, x2, y2, x3, y3)` and `areCollinearApproach2(x1, y1, x2, y2, x3, y3)` in `Check_if_Three_Points_are_Collinear.js`. Ping me when you're done (or stuck) and I'll review your implementation, then write the test file.
+The first draft of `areCollinearApproach1` had a real bug, caught by exercising the "points don't need to be distinct" constraint: for `(2,3), (2,3), (5,7)` — where P1 and P2 are the exact same point — it incorrectly returned `false`. The reason: `x1 === x2` was `true` (since P1 and P2 share every coordinate, they trivially share `x` too), so the code took the "this is a vertical line" branch and checked `x2 === x3` (`2 === 5`), which is `false`. But P1-P2 isn't actually a vertical line here — it's not a line at all, since two coincident points don't define a direction. Mathematically, a repeated point plus any third point is always trivially collinear (the "triangle" they'd form has zero area no matter where the third point is), which is exactly what `areCollinearApproach2`'s cross-product formula already returned correctly, with no special-casing needed.
+
+Fixed by adding an explicit check for coincident points *before* the vertical-line logic, returning `true` immediately if any two of the three points are identical. `areCollinearApproach2` needed no changes — the cross-product formula handled this case correctly from the start, which is exactly the robustness advantage described above.
+
+Verified against 13 cases (all four examples, negative coordinates, and every combination of which two points coincide) plus a direct cross-check between both approaches, all in `Check_if_Three_Points_are_Collinear.test.js`.
+
+## Key Takeaway
+
+"Two points coincide" and "two points share the same x-coordinate" sound similar but mean different things — one says the points are identical, the other says they're vertically stacked but still distinct. Conflating them is exactly the kind of subtle bug the cross-product formula avoids by never asking about slope or verticality in the first place; it just measures area, and area doesn't care why three points happen to be arranged the way they are.
