@@ -3,6 +3,7 @@
 **Difficulty:** Easy
 **Topics:** Conditionals, Operators, Geometry
 **File:** [`Check_if_Three_Points_are_Collinear.js`](./Check_if_Three_Points_are_Collinear.js)
+**Tests:** [`Check_if_Three_Points_are_Collinear.test.js`](./Check_if_Three_Points_are_Collinear.test.js)
 
 ## Problem Statement
 
@@ -65,6 +66,12 @@ Collinearity checks are a small building block of computational geometry, used c
 
 ```js
 areCollinearApproach1(x1, y1, x2, y2, x3, y3) {
+  // If any two of the three points coincide exactly, they're trivially collinear -
+  // there's no well-defined slope to compare, and points are allowed to repeat.
+  if ((x1 === x2 && y1 === y2) || (x2 === x3 && y2 === y3) || (x1 === x3 && y1 === y3)) {
+    return true;
+  }
+
   if (x1 === x2) {
     // P1-P2 is a vertical line; P1P2P3 are collinear only if P3 shares the same x
     return x2 === x3;
@@ -81,7 +88,7 @@ areCollinearApproach1(x1, y1, x2, y2, x3, y3) {
 }
 ```
 
-Two separate vertical-line special cases are needed *before* you can safely divide — miss either one and the function throws division-by-zero results (`Infinity`, `-Infinity`, or `NaN`) instead of a clean `true`/`false`.
+Three separate special cases are needed *before* you can safely divide: repeated points (handled first, since a repeated point makes "slope" meaningless rather than merely undefined) and two flavors of vertical line. Miss any of them and the function either throws division-by-zero results (`Infinity`, `-Infinity`, `NaN`) or — as the very first draft of this did — misclassifies a repeated point as "not collinear" by incorrectly treating it as a vertical-line case.
 
 **Dry Run** (`(1,1), (2,2), (3,4)`, Example 2):
 
