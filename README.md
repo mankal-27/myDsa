@@ -30,10 +30,15 @@ my_dsa/
 │   │   │   ├── Positive_Negative_or_Zero.js
 │   │   │   └── Positive_Negative_or_Zero.test.js
 │   │   └── ... (Leap Year Check, Grade from Marks, Valid Triangle, Vowel or Consonant, Collinear Points)
-│   └── 3_Loops_Iteration/
-│       └── 1_Print_Numbers_from_1_to_N/
+│   ├── 3_Loops_Iteration/
+│   │   ├── 1_Print_Numbers_from_1_to_N/
+│   │   │   ├── README.md
+│   │   │   └── Print_Numbers_from_1_to_N.js
+│   │   └── ... (Multiplication Table, Sum of Even/Odd Numbers, Count Digits, Sum of All Divisors)
+│   └── 4_Pattern_Printing/
+│       └── 1_Right-Angled_Triangle_of_Stars/
 │           ├── README.md
-│           └── Print_Numbers_from_1_to_N.js
+│           └── Right-Angled_Triangle_of_Stars.js
 ├── patterns/       # One folder per pattern (two-pointers, sliding-window, etc.)
 ├── resources/       # Links, notes, and reference material per concept
 ├── animations/       # Visualizations/animations used to build intuition
@@ -48,7 +53,8 @@ Each problem folder follows the same layout: a `README.md`, the solution file, a
 |---|---|---|---|
 | Variables & I/O Operations | `1_Variables_Io_Operations/` | Complete | Swap Two Numbers, Temperature Converter, Simple & Compound Interest, Convert Seconds to H/M/S, Absolute Value Without Built-in, Quotient & Remainder of Division, Area & Perimeter of Shapes |
 | Conditionals & Decision Making | `2_Conditionals_Dec/` | Complete | Even or Odd, Positive/Negative/Zero, Leap Year Check, Grade from Marks, Valid Triangle from Three Sides, Vowel or Consonant, Check if Three Points are Collinear |
-| Loops & Iteration | `3_Loops_Iteration/` | In progress | Print Numbers from 1 to N |
+| Loops & Iteration | `3_Loops_Iteration/` | Complete | Print Numbers from 1 to N, Multiplication Table of a Number, Sum of Even or Odd Numbers from 1 to N, Count Digits in an Integer, Sum of All Divisors of a Number |
+| Pattern Printing | `4_Pattern_Printing/` | In progress | Right-Angled Triangle of Stars |
 
 ### Problem README Template
 
