@@ -65,9 +65,12 @@ my_dsa/
 │       ├── 6_Linear_Search_for_a_Target/
 │       │   ├── README.md
 │       │   └── Linear_Search_for_a_Target.js
-│       └── 7_Reverse_an_Array_In_Place/
+│       ├── 7_Reverse_an_Array_In_Place/
+│       │   ├── README.md
+│       │   └── Reverse_an_Array_In_Place.js
+│       └── 8_Check_if_an_Array_is_Sorted/
 │           ├── README.md
-│           └── Reverse_an_Array_In_Place.js
+│           └── Check_if_an_Array_is_Sorted.js
 ├── patterns/       # One folder per pattern (two-pointers, sliding-window, etc.)
 ├── resources/       # Links, notes, and reference material per concept
 ├── animations/       # Visualizations/animations used to build intuition
@@ -85,7 +88,7 @@ Each problem folder follows the same layout: a `README.md`, the solution file, a
 | Loops & Iteration | `3_Loops_Iteration/` | Complete | Print Numbers from 1 to N, Multiplication Table of a Number, Sum of Even or Odd Numbers from 1 to N, Count Digits in an Integer, Sum of All Divisors of a Number |
 | Pattern Printing | `4_Pattern_Printing/` | In progress | Right-Angled Triangle of Stars |
 | Number Theory | `5_Number_Theory/` | In progress | Prime Number Check, Print All Primes Up to N |
-| Arrays | `6_Arrays/` | In progress | Sum of All Elements, Average of Array Elements, Largest Element in an Array, Second Largest Element, Count Even and Odd Numbers, Linear Search for a Target, Reverse an Array In Place |
+| Arrays | `6_Arrays/` | In progress | Sum of All Elements, Average of Array Elements, Largest Element in an Array, Second Largest Element, Count Even and Odd Numbers, Linear Search for a Target, Reverse an Array In Place, Check if an Array is Sorted |
 
 ### Problem README Template
 
