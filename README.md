@@ -53,9 +53,12 @@ my_dsa/
 │       ├── 2_Average_of_Array_Elements/
 │       │   ├── README.md
 │       │   └── Average_of_Array_Elements.js
-│       └── 3_Largest_Element_in_an_Array/
+│       ├── 3_Largest_Element_in_an_Array/
+│       │   ├── README.md
+│       │   └── Largest_Element_in_an_Array.js
+│       └── 4_Second_Largest_Element/
 │           ├── README.md
-│           └── Largest_Element_in_an_Array.js
+│           └── Second_Largest_Element.js
 ├── patterns/       # One folder per pattern (two-pointers, sliding-window, etc.)
 ├── resources/       # Links, notes, and reference material per concept
 ├── animations/       # Visualizations/animations used to build intuition
@@ -73,7 +76,7 @@ Each problem folder follows the same layout: a `README.md`, the solution file, a
 | Loops & Iteration | `3_Loops_Iteration/` | Complete | Print Numbers from 1 to N, Multiplication Table of a Number, Sum of Even or Odd Numbers from 1 to N, Count Digits in an Integer, Sum of All Divisors of a Number |
 | Pattern Printing | `4_Pattern_Printing/` | In progress | Right-Angled Triangle of Stars |
 | Number Theory | `5_Number_Theory/` | In progress | Prime Number Check, Print All Primes Up to N |
-| Arrays | `6_Arrays/` | In progress | Sum of All Elements, Average of Array Elements, Largest Element in an Array |
+| Arrays | `6_Arrays/` | In progress | Sum of All Elements, Average of Array Elements, Largest Element in an Array, Second Largest Element |
 
 ### Problem README Template
 
