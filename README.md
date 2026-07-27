@@ -75,9 +75,12 @@ my_dsa/
 │   │       ├── README.md
 │   │       └── Count_Frequency_of_Each_Element.js
 │   └── 7_Strings/
-│       └── 1_Length_of_a_String/
+│       ├── 1_Length_of_a_String/
+│       │   ├── README.md
+│       │   └── Length_of_a_String.js
+│       └── 2_Count_Vowels_and_Consonants/
 │           ├── README.md
-│           └── Length_of_a_String.js
+│           └── Count_Vowels_and_Consonants.js
 ├── patterns/       # One folder per pattern (two-pointers, sliding-window, etc.)
 ├── resources/       # Links, notes, and reference material per concept
 ├── animations/       # Visualizations/animations used to build intuition
@@ -96,7 +99,7 @@ Each problem folder follows the same layout: a `README.md`, the solution file, a
 | Pattern Printing | `4_Pattern_Printing/` | In progress | Right-Angled Triangle of Stars |
 | Number Theory | `5_Number_Theory/` | In progress | Prime Number Check, Print All Primes Up to N |
 | Arrays | `6_Arrays/` | In progress | Sum of All Elements, Average of Array Elements, Largest Element in an Array, Second Largest Element, Count Even and Odd Numbers, Linear Search for a Target, Reverse an Array In Place, Check if an Array is Sorted, Count Frequency of Each Element |
-| Strings | `7_Strings/` | In progress | Length of a String |
+| Strings | `7_Strings/` | In progress | Length of a String, Count Vowels and Consonants |
 
 ### Problem README Template
 
