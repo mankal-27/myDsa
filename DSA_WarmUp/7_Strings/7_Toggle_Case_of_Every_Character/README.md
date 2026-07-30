@@ -3,6 +3,7 @@
 **Difficulty:** Easy
 **Topics:** Strings
 **File:** [`Toggle_Case_of_Every_Character.js`](./Toggle_Case_of_Every_Character.js)
+**Tests:** [`Toggle_Case_of_Every_Character.test.js`](./Toggle_Case_of_Every_Character.test.js)
 
 ## Problem Statement
 
@@ -130,6 +131,10 @@ Joining gives `"mIXED123!@#"`. ✓ matches Example 4 and Approach 1's result —
 
 Like Replace All Spaces with a Character, there's no `O(1)`-space version available here — strings are immutable, so any transformation has to build an entirely new string. The real distinction between these two approaches is technique: explicit numeric character-code math vs. relying on `toUpperCase`/`toLowerCase` to handle the actual case conversion.
 
-## Your Turn
+## Implementation Notes
 
-Implement `toggleCaseApproach1(str)` and `toggleCaseApproach2(str)` in `Toggle_Case_of_Every_Character.js`. Ping me when you're done (or stuck) and I'll review your implementation, then write the test file.
+Both approaches were implemented correctly — no bugs found, including an empty string, digits-only input, all-uppercase and all-lowercase strings, and mixed letters/digits/punctuation. Verified against 7 cases plus a direct cross-check between both approaches, all in `Toggle_Case_of_Every_Character.test.js`.
+
+## Key Takeaway
+
+Approach 1's correctness rests entirely on the specific numeric boundaries `65`-`90` and `97`-`122` — get either range wrong by one and a letter at the edge (`'Z'`/`90` or `'a'`/`97`) silently falls through to the "leave unchanged" branch instead of toggling. Approach 2 sidesteps needing to know those boundaries at all, by asking a relative question ("is this equal to its own uppercase form?") instead of an absolute one ("is this code in this specific range?") — trading a small amount of indirection for one less place a boundary typo could hide.
