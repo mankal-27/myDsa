@@ -74,31 +74,35 @@ my_dsa/
 │   │   └── 9_Count_Frequency_of_Each_Element/
 │   │       ├── README.md
 │   │       └── Count_Frequency_of_Each_Element.js
-│   └── 7_Strings/
-│       ├── 1_Length_of_a_String/
-│       │   ├── README.md
-│       │   └── Length_of_a_String.js
-│       ├── 2_Count_Vowels_and_Consonants/
-│       │   ├── README.md
-│       │   └── Count_Vowels_and_Consonants.js
-│       ├── 3_Count_Words_in_a_Sentence/
-│       │   ├── README.md
-│       │   └── Count_Words_in_a_Sentence.js
-│       ├── 4_Palindrome_String_Check/
-│       │   ├── README.md
-│       │   └── Palindrome_String_Check.js
-│       ├── 5_Count_Occurrence_of_a_Character/
-│       │   ├── README.md
-│       │   └── Count_Occurrence_of_a_Character.js
-│       ├── 6_Replace_All_Spaces_with_a_Character/
-│       │   ├── README.md
-│       │   └── Replace_All_Spaces_with_a_Character.js
-│       ├── 7_Toggle_Case_of_Every_Character/
-│       │   ├── README.md
-│       │   └── Toggle_Case_of_Every_Character.js
-│       └── 8_Find_the_Longest_Word_in_a_Sentence/
+│   ├── 7_Strings/
+│   │   ├── 1_Length_of_a_String/
+│   │   │   ├── README.md
+│   │   │   └── Length_of_a_String.js
+│   │   ├── 2_Count_Vowels_and_Consonants/
+│   │   │   ├── README.md
+│   │   │   └── Count_Vowels_and_Consonants.js
+│   │   ├── 3_Count_Words_in_a_Sentence/
+│   │   │   ├── README.md
+│   │   │   └── Count_Words_in_a_Sentence.js
+│   │   ├── 4_Palindrome_String_Check/
+│   │   │   ├── README.md
+│   │   │   └── Palindrome_String_Check.js
+│   │   ├── 5_Count_Occurrence_of_a_Character/
+│   │   │   ├── README.md
+│   │   │   └── Count_Occurrence_of_a_Character.js
+│   │   ├── 6_Replace_All_Spaces_with_a_Character/
+│   │   │   ├── README.md
+│   │   │   └── Replace_All_Spaces_with_a_Character.js
+│   │   ├── 7_Toggle_Case_of_Every_Character/
+│   │   │   ├── README.md
+│   │   │   └── Toggle_Case_of_Every_Character.js
+│   │   └── 8_Find_the_Longest_Word_in_a_Sentence/
+│   │       ├── README.md
+│   │       └── Find_the_Longest_Word_in_a_Sentence.js
+│   └── 8_Recursion/
+│       └── 1_Sum_of_First_N_Natural_Numbers/
 │           ├── README.md
-│           └── Find_the_Longest_Word_in_a_Sentence.js
+│           └── Sum_of_First_N_Natural_Numbers.js
 ├── patterns/       # One folder per pattern (two-pointers, sliding-window, etc.)
 ├── resources/       # Links, notes, and reference material per concept
 ├── animations/       # Visualizations/animations used to build intuition
@@ -118,6 +122,7 @@ Each problem folder follows the same layout: a `README.md`, the solution file, a
 | Number Theory | `5_Number_Theory/` | In progress | Prime Number Check, Print All Primes Up to N |
 | Arrays | `6_Arrays/` | In progress | Sum of All Elements, Average of Array Elements, Largest Element in an Array, Second Largest Element, Count Even and Odd Numbers, Linear Search for a Target, Reverse an Array In Place, Check if an Array is Sorted, Count Frequency of Each Element |
 | Strings | `7_Strings/` | In progress | Length of a String, Count Vowels and Consonants, Count Words in a Sentence, Palindrome String Check, Count Occurrence of a Character, Replace All Spaces with a Character, Toggle Case of Every Character, Find the Longest Word in a Sentence |
+| Recursion | `8_Recursion/` | In progress | Sum of First N Natural Numbers |
 
 ### Problem README Template
 
