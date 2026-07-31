@@ -166,6 +166,10 @@ Every problem's `README.md` covers:
 
 - [JavaScript for DSA](resources/javascript-for-dsa.md) — JS fundamentals, built-ins, and idioms for solving DSA problems
 
+## Concept Chapters
+
+- [Big O Notation](resources/big-o-notation.md) — what Big O measures, the common time/space complexity classes, rules for calculating Big O, and worked real-world problems
+
 ## Progress
 
 Track pattern-by-pattern progress here as concepts are studied.
