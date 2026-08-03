@@ -103,6 +103,14 @@ my_dsa/
 │       └── 1_Sum_of_First_N_Natural_Numbers/
 │           ├── README.md
 │           └── Sum_of_First_N_Natural_Numbers.js
+├── implemntation/       # Standalone practice implementations tied to Concept Chapters (not part of DSA_WarmUp modules)
+│   ├── README.md       # Index linking each file below to its own README
+│   ├── log.js
+│   ├── log.README.md
+│   ├── log.test.js
+│   ├── mod.js
+│   ├── mod.README.md
+│   └── mod.test.js
 ├── patterns/       # One folder per pattern (two-pointers, sliding-window, etc.)
 ├── resources/       # Links, notes, and reference material per concept
 ├── animations/       # Visualizations/animations used to build intuition
@@ -169,6 +177,15 @@ Every problem's `README.md` covers:
 ## Concept Chapters
 
 - [Big O Notation](resources/big-o-notation.md) — what Big O measures, the common time/space complexity classes, rules for calculating Big O, and worked real-world problems
+
+### Math Fundamentals
+
+- [Logarithms](resources/math-logarithms.md) — what a logarithm computes, why CS means base 2, and the binary-search/bit-length connection
+- [Modular Arithmetic](resources/math-modular-arithmetic.md) — the `%` operator, its properties, fast modular exponentiation, and JavaScript's negative-mod gotcha
+- [GCD and LCM](resources/math-gcd-lcm.md) — the Euclidean algorithm, the GCD↔LCM formula, and why it's O(log(min(a,b)))
+- [Prime Sieve](resources/math-prime-sieve.md) — trial division vs. the Sieve of Eratosthenes vs. the SPF sieve, and when to use each
+- [Combinatorics](resources/math-combinatorics.md) — permutations vs. combinations, Pascal's Triangle, and overflow-safe nCr
+- [Matrix Exponentiation](resources/math-matrix-exponentiation.md) — computing Fibonacci (and any linear recurrence) in O(log n)
 
 ## Progress
 
