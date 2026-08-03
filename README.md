@@ -110,7 +110,10 @@ my_dsa/
 │   ├── log.test.js
 │   ├── mod.js
 │   ├── mod.README.md
-│   └── mod.test.js
+│   ├── mod.test.js
+│   ├── gcdlcm.js
+│   ├── gcdlcm.README.md
+│   └── gcdlcm.test.js
 ├── patterns/       # One folder per pattern (two-pointers, sliding-window, etc.)
 ├── resources/       # Links, notes, and reference material per concept
 ├── animations/       # Visualizations/animations used to build intuition
