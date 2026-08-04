@@ -7,5 +7,6 @@ Standalone practice implementations tied to this repo's [Concept Chapters](../re
 | [`log.js`](./log.js) | `floorLog2`, `countDigits`, `countBits` — built on [Logarithms](../resources/math-logarithms.md) | [log.README.md](./log.README.md) | [log.test.js](./log.test.js) |
 | [`mod.js`](./mod.js) | `power` (modular exponentiation), `modInverse`, `modSubstract` — built on [Modular Arithmetic](../resources/math-modular-arithmetic.md) | [mod.README.md](./mod.README.md) | [mod.test.js](./mod.test.js) |
 | [`gcdlcm.js`](./gcdlcm.js) | `gcd`, `gcdRecursive`, `lcm`, `extendedGcd`, `gcdArray` — built on [GCD and LCM](../resources/math-gcd-lcm.md) | [gcdlcm.README.md](./gcdlcm.README.md) | [gcdlcm.test.js](./gcdlcm.test.js) |
+| [`isPrime.js`](./isPrime.js) | `isPrime`, `countPrimes`, `buildSPF`, `factorize` — built on [Prime Sieve](../resources/math-prime-sieve.md) | [isPrime.README.md](./isPrime.README.md) | [isPrime.test.js](./isPrime.test.js) |
 
 Run `npm test` from the repo root to run every test file in the repo, including these.

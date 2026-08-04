@@ -113,7 +113,10 @@ my_dsa/
 │   ├── mod.test.js
 │   ├── gcdlcm.js
 │   ├── gcdlcm.README.md
-│   └── gcdlcm.test.js
+│   ├── gcdlcm.test.js
+│   ├── isPrime.js
+│   ├── isPrime.README.md
+│   └── isPrime.test.js
 ├── patterns/       # One folder per pattern (two-pointers, sliding-window, etc.)
 ├── resources/       # Links, notes, and reference material per concept
 ├── animations/       # Visualizations/animations used to build intuition
