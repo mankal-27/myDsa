@@ -44,8 +44,18 @@ test('Solution.isPalindromeApproach2', async (t) => {
   }
 });
 
-test('both approaches agree on every case', () => {
+test('Solution.isPalindromeApproach3', async (t) => {
+  for (const [description, x, expected] of cases) {
+    await t.test(description, () => {
+      assert.equal(sol.isPalindromeApproach3(x), expected);
+    });
+  }
+});
+
+test('all three approaches agree on every case', () => {
   for (const [, x] of cases) {
-    assert.equal(sol.isPalindromeApproach1(x), sol.isPalindromeApproach2(x));
+    const a1 = sol.isPalindromeApproach1(x);
+    assert.equal(sol.isPalindromeApproach2(x), a1);
+    assert.equal(sol.isPalindromeApproach3(x), a1);
   }
 });

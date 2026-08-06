@@ -104,10 +104,14 @@ my_dsa/
 │   │       ├── README.md
 │   │       └── Sum_of_First_N_Natural_Numbers.js
 │   └── 9_Num_basics/
-│       └── 1_Palindrome_Number/
+│       ├── 1_Palindrome_Number/
+│       │   ├── README.md
+│       │   ├── Palindrome_Number.js
+│       │   └── Palindrome_Number.test.js
+│       └── 2_Plus_One/
 │           ├── README.md
-│           ├── Palindrome_Number.js
-│           └── Palindrome_Number.test.js
+│           ├── Plus_One.js
+│           └── Plus_One.test.js
 ├── implemntation/       # Standalone practice implementations tied to Concept Chapters (not part of DSA_WarmUp modules)
 │   ├── README.md       # Index linking each file below to its own README
 │   ├── log.js
@@ -142,7 +146,7 @@ Each problem folder follows the same layout: a `README.md`, the solution file, a
 | Arrays | `6_Arrays/` | In progress | Sum of All Elements, Average of Array Elements, Largest Element in an Array, Second Largest Element, Count Even and Odd Numbers, Linear Search for a Target, Reverse an Array In Place, Check if an Array is Sorted, Count Frequency of Each Element |
 | Strings | `7_Strings/` | In progress | Length of a String, Count Vowels and Consonants, Count Words in a Sentence, Palindrome String Check, Count Occurrence of a Character, Replace All Spaces with a Character, Toggle Case of Every Character, Find the Longest Word in a Sentence |
 | Recursion | `8_Recursion/` | In progress | Sum of First N Natural Numbers |
-| Number Basics | `9_Num_basics/` | In progress | Palindrome Number |
+| Number Basics | `9_Num_basics/` | In progress | Palindrome Number, Plus One |
 
 ### Problem README Template
 

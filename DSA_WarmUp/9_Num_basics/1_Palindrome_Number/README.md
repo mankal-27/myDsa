@@ -131,10 +131,47 @@ Loop stops with `x = 12`, `reversedHalf = 123`. Since the original number had an
 
 Both approaches are `O(d)`, where `d = O(log x)` (the number of digits in `x` grows with `log₁₀(x)`, per the [Logarithms](../../../resources/math-logarithms.md) chapter's digit-counting identity) — so realistically this is `O(log x)` time either way. The difference is entirely in space: Approach 1 needs `O(d)` extra space for the string and array; Approach 2 needs only `O(1)`.
 
+## Bonus — Two-Pointer String Comparison
+
+**Intuition:** A third way to express "does this string read the same forwards and backwards": convert to a string once, then walk two pointers inward from both ends simultaneously, comparing characters as they go. If any pair of matched characters ever differs, it's not a palindrome; if the pointers cross without ever finding a mismatch, it is. This is the same two-pointer shape used by this repo's [`Palindrome String Check`](../../7_Strings/4_Palindrome_String_Check/README.md).
+
+**Solution:**
+
+```js
+isPalindromeApproach3(x){
+    if(x < 0) return false
+    const str = String(x)
+    let left = 0;
+    let right = str.length - 1
+    while(left < right){
+        if(str[left] !== str[right]){
+            return false
+        }
+        left++
+        right--
+    }
+    return true
+}
+```
+
+**Dry Run** (`x = 1221`):
+
+| Step | `left` | `right` | `str[left]` | `str[right]` | match? |
+|---|---|---|---|---|---|
+| 1 | 0 | 3 | `'1'` | `'1'` | yes → `left++`, `right--` |
+| 2 | 1 | 2 | `'2'` | `'2'` | yes → `left++`, `right--` |
+| 3 | 2 | 1 | — | — | `left < right` is false → loop stops |
+
+Return `true`. ✓ `1221` is a palindrome.
+
+This still needs `O(d)` space for the string itself (same as Approach 1), but avoids ever building a *second*, reversed string — it compares directly against the original instead, stopping as soon as any mismatch is found rather than always reversing the whole thing first.
+
 ## Implementation Notes
 
-Both approaches were implemented correctly — no bugs found. Verified against 20 cases in `Palindrome_Number.test.js`, including both examples from the Problem Statement, single digits, negative numbers (including the 32-bit signed minimum, `-2147483648`), trailing-zero rejections (`10`, `20`, `100`), even- and odd-digit-count palindromes, a non-palindrome that shares digits at both ends (`1000021`), and the 32-bit signed maximum (`2147483647`, not a palindrome). Approach 2's trailing-zero guard (`x !== 0 && x % 10 === 0`) and its odd-digit-count comparison (`x === Math.floor(reversedHalf / 10)`) were both exercised directly by these cases and produced correct results throughout.
+Approaches 1 and 2 were implemented correctly — no bugs found. Approach 3 (the bonus two-pointer version) had one real bug: the mismatch check was written as `if(str[x] !== str[right])`, indexing the string with `x` — the original *number* parameter — instead of `left`, the pointer meant to track the current position from the front. Since `x` is a large integer (not a valid small string index), `str[x]` evaluated to `undefined` for essentially every multi-digit number, which never equals `str[right]`, so the function returned `false` immediately for almost every real palindrome — confirmed concretely: `isPalindromeApproach3(121)` returned `false` before the fix, `isPalindromeApproach3(12321)` also returned `false`. Only single-digit numbers and two-digit non-palindromes happened to return the right answer, by coincidence (a one-character string's loop body never runs at all, since `left < right` is already false). Fixed by changing `str[x]` to `str[left]`.
+
+Verified against 24 cases in `Palindrome_Number.test.js`, including both examples from the Problem Statement, single digits, negative numbers (including the 32-bit signed minimum, `-2147483648`), trailing-zero rejections (`10`, `20`, `100`), even- and odd-digit-count palindromes, a non-palindrome that shares digits at both ends (`1000021`), and the 32-bit signed maximum (`2147483647`, not a palindrome) — with a dedicated test confirming all three approaches agree on every case.
 
 ## Key Takeaway
 
-Approach 2's stopping condition — `while (x > reversedHalf)` — is doing more work than it looks like at first glance: it's simultaneously the loop's exit condition *and* the thing that avoids ever needing to know up front how many digits `x` has. Comparing `x` against `reversedHalf` directly (rather than, say, counting digits first and looping exactly `d/2` times) means the same loop body handles even- and odd-length numbers without a special case — the only place the odd-length case shows up is in the final comparison, where `Math.floor(reversedHalf / 10)` discards the one digit that ended up "left over" in the middle. When a loop's own state can answer "have I done enough yet," it's often simpler than computing that answer separately beforehand.
+The bug in Approach 3 is a reminder that a two-pointer loop has *two* loop-scoped variables (`left`, `right`) plus whatever the function's own parameters are (`x`) — and once `x` has already been consumed to build `str`, it stops being meaningful as an index, even though it's still in scope and still looks like a plausible variable to reach for. The fact that the function still ran without throwing (rather than crashing) is exactly why this needed actual execution to catch: `str[x]` is syntactically valid, just semantically wrong, and it silently returns `undefined` instead of erroring — a class of bug that reading the code carefully can miss but running it against real palindromes catches immediately.
